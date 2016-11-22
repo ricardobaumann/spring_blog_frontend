@@ -1,0 +1,22 @@
+backend:
+  url: http://localhost:8081/
+  clientId: clientapp
+  clientSecret: 123456
+  grantType: password
+  scopes:
+    - read
+    - write
+
+spring:
+  oauth2:
+    sso:
+      home:
+        secure: false
+        path: /,/**/*.html
+    client:
+      accessTokenUri: http://localhost:8081/oauth/token
+      userAuthorizationUri: http://localhost:8081/oauth/authorize
+      clientId: clientapp
+      clientSecret: 123456
+    resource:
+      userInfoUri: http://localhost:8081/user
