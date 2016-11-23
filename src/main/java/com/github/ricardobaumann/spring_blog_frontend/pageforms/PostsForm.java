@@ -12,4 +12,12 @@ public class PostsForm {
     @NotEmpty
     private String title;
 
+    @NotEmpty
+    private String category;
+
+    @NotEmpty
+    private String content;
+
+    private Long id;
+
 }
