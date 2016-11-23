@@ -24,7 +24,7 @@ public class BackendHelperTest {
 
     @Test
     public void post() throws Exception {
-       // System.out.println(backendHelper.getToken("roy","spring"));
+       System.out.println(backendHelper.getToken("roy","spring"));
     }
 
 }

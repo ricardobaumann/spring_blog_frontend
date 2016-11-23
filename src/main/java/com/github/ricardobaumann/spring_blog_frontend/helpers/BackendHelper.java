@@ -56,8 +56,6 @@ public class BackendHelper{
         resource.setUsername(user);
         resource.setPassword(password);
 
-        resource.setClientAuthenticationScheme(AuthenticationScheme.none);
-
         return resource;
     }
 
