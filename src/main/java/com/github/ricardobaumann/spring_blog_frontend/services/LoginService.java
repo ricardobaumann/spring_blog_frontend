@@ -12,12 +12,6 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class LoginService {
 
-    @Autowired
-    private BackendHelper backendHelper;
-
-    public UserDTO login(String username, String password) {
-        return new UserDTO(backendHelper.getToken(username,password).getValue());
-    }
 
 
 }
