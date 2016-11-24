@@ -35,12 +35,19 @@
         <td><strong>Title</strong></td>
         <td><strong>Content</strong></td>
         <td><strong>Category</strong></td>
+        <td></td>
     </tr>
     <th:block th:each="post : ${postsForm.posts}">
         <tr>
             <td th:text="${post.title}"></td>
             <td th:text="${post.category}"></td>
             <td th:text="${post.content}"></td>
+            <td>
+                <form action="/posts/delete" method="get">
+                    <input type="hidden" th:value="${post.id}" id="id" name="id"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
     </th:block>
 
