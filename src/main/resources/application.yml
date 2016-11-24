@@ -1,0 +1,8 @@
+backend:
+  url: http://localhost:8081/
+  clientId: clientapp
+  clientSecret: 123456
+  grantType: password
+  scopes:
+    - read
+    - write

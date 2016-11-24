@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<h1>Posts!</h1>
+<form action="#" th:action="@{/posts}" th:object="${postsForm}" method="post">
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td><input type="text" th:field="*{title}" /></td>
+            <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</td>
+        </tr>
+
+        <tr>
+            <td>Content:</td>
+            <td><input type="text" th:field="*{content}" /></td>
+            <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content Error</td>
+        </tr>
+
+        <tr>
+            <td>Category:</td>
+            <td><input type="text" th:field="*{category}" /></td>
+            <td th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category Error</td>
+        </tr>
+
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
+</form>
+<table>
+    <tr>
+        <td><strong>Title</strong></td>
+        <td><strong>Content</strong></td>
+        <td><strong>Category</strong></td>
+    </tr>
+    <th:block th:each="post : ${postsForm.posts}">
+        <tr>
+            <td th:text="${post.title}"></td>
+            <td th:text="${post.category}"></td>
+            <td th:text="${post.content}"></td>
+        </tr>
+    </th:block>
+
+</table>
+</body>
+</html>
