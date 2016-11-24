@@ -1,11 +1,15 @@
 package com.github.ricardobaumann.spring_blog_frontend.helpers;
 
+import com.github.ricardobaumann.spring_blog_frontend.models.Post;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.Assert.*;
+import static org.hamcrest.core.Is.*;
 
 /**
  * Created by ricardobaumann on 22/11/16.
@@ -24,7 +28,13 @@ public class BackendHelperTest {
 
     @Test
     public void post() throws Exception {
-       System.out.println(backendHelper.getToken("roy","spring"));
+       OAuth2AccessToken token = backendHelper.getToken("roy","spring");
+        Post post = new Post();
+        post.setCategory("category");
+        post.setContent("content");
+        post.setTitle("title");
+        post = backendHelper.post(post, "posts",token.getValue(),Post.class);
+        assertThat(post.getId(),is(1L));
     }
 
 }

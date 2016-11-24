@@ -89,7 +89,7 @@ public class BackendHelper{
         return new OAuth2RestTemplate(resource(userName, password), new DefaultOAuth2ClientContext(atr));
     }
 
-    public <T> T post(Object entity, String path, String token, Class<T> responseType) {
+    public <T> T post(T entity, String path, String token, Class<T> responseType) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -97,9 +97,9 @@ public class BackendHelper{
 
         headers.set("Authorization", String.format("Bearer %s",token));
 
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        //MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+        HttpEntity<T> request = new HttpEntity<>(entity, headers);
 
         return restTemplate.postForObject(getURL(path),request,responseType);
     }
