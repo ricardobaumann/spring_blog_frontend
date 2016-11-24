@@ -28,12 +28,18 @@ public class PostController {
     private Converter converter;
 
     @PostMapping("/posts")
-    public String post(@Valid PostsForm postsForm, BindingResult bindingResult, CustomAuthentication customAuthentication) {
+    public String post(@Valid PostsForm postsForm, BindingResult bindingResult, CustomAuthentication customAuthentication) throws Exception {
+
+        if (true) {
+            throw new Exception("test");
+        }
 
         if (!bindingResult.hasErrors()) {
             Post post = converter.convert(postsForm,Post.class);
             post = postService.createPost(post,customAuthentication);
             postsForm.setId(post.getId());
+        } else {
+            return "posts";
         }
 
         //System.out.println(customAuthentication.getToken());
