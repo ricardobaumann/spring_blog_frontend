@@ -38,12 +38,13 @@ public class PostController {
 
         //System.out.println(customAuthentication.getToken());
 
+
         return "redirect:/posts";
     }
 
     @GetMapping("/posts")
-    public String get(PostsForm postsForm) {
-
+    public String get(PostsForm postsForm, CustomAuthentication customAuthentication) {
+        postsForm.setPosts(postService.getPage(customAuthentication));
         return "posts";
     }
 

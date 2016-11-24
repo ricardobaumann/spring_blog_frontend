@@ -20,4 +20,7 @@ public class PostService {
         return backendHelper.post(post,"posts",customAuthentication.getToken(),Post.class);
     }
 
+    public Post[] getPage(CustomAuthentication customAuthentication) {
+        return backendHelper.get("posts",customAuthentication.getToken(),Post[].class);
+    }
 }

@@ -34,7 +34,7 @@ public class BackendHelperTest {
         post.setContent("content");
         post.setTitle("title");
         post = backendHelper.post(post, "posts",token.getValue(),Post.class);
-        assertThat(post.getId(),is(1L));
+        assertNotNull(post.getId());
     }
 
 }

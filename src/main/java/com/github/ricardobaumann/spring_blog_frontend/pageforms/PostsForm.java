@@ -1,5 +1,6 @@
 package com.github.ricardobaumann.spring_blog_frontend.pageforms;
 
+import com.github.ricardobaumann.spring_blog_frontend.models.Post;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -19,5 +20,7 @@ public class PostsForm {
     private String content;
 
     private Long id;
+
+    private Post[] posts;
 
 }

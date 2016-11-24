@@ -6,13 +6,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.http.*;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
@@ -20,15 +14,11 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.client.token.AccessTokenRequest;
 import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
 import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
-import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -91,17 +81,23 @@ public class BackendHelper{
 
     public <T> T post(T entity, String path, String token, Class<T> responseType) {
 
+
+
+        //MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+
+        HttpEntity<T> request = new HttpEntity<>(entity, getHeaders(token));
+
+        return restTemplate.postForObject(getURL(path),request,responseType);
+    }
+
+    private HttpHeaders getHeaders(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
         headers.set("Authorization", String.format("Bearer %s",token));
 
-        //MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-
-        HttpEntity<T> request = new HttpEntity<>(entity, headers);
-
-        return restTemplate.postForObject(getURL(path),request,responseType);
+        return headers;
     }
 
     @SneakyThrows
@@ -110,4 +106,11 @@ public class BackendHelper{
     }
 
 
+    public <T> T[] get(String path, String token, Class<T[]> responseType) {
+        HttpEntity<T> request = new HttpEntity<>(getHeaders(token));
+
+        ResponseEntity<T[]> response = restTemplate.exchange(getURL(path), HttpMethod.GET, request, responseType);
+
+        return response.getBody();
+    }
 }
