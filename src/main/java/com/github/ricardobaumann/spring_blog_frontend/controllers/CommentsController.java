@@ -38,6 +38,7 @@ public class CommentsController {
         commentsForm.setPost(post);
 
         commentsForm.setContent("Input your comment");
+        commentsForm.setComments(post.getComments());
 
         return "comments";
     }

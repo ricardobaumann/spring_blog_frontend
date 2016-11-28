@@ -15,4 +15,6 @@ public class Post {
     private String content;
 
     private Long id;
+
+    private Comment[] comments;
 }
