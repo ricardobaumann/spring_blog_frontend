@@ -4,7 +4,6 @@ import com.github.ricardobaumann.spring_blog_frontend.configuration.CustomAuthen
 import com.github.ricardobaumann.spring_blog_frontend.helpers.BackendHelper;
 import com.github.ricardobaumann.spring_blog_frontend.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,5 +21,9 @@ public class PostService {
 
     public Post[] getPage(CustomAuthentication customAuthentication) {
         return backendHelper.get("posts",customAuthentication.getToken(),Post[].class);
+    }
+
+    public void delete(long id, CustomAuthentication customAuthentication) {
+        backendHelper.delete("posts",id, customAuthentication.getToken());
     }
 }

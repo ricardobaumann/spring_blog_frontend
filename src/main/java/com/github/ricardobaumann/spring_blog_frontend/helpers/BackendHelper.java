@@ -1,7 +1,6 @@
 package com.github.ricardobaumann.spring_blog_frontend.helpers;
 
 import com.github.ricardobaumann.spring_blog_frontend.BackendConfig;
-import com.github.ricardobaumann.spring_blog_frontend.models.Post;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -112,5 +111,17 @@ public class BackendHelper{
         ResponseEntity<T[]> response = restTemplate.exchange(getURL(path), HttpMethod.GET, request, responseType);
 
         return response.getBody();
+    }
+
+    public void delete(String path, long id, String token) {
+        HttpEntity<?> request = new HttpEntity<>(getHeaders(token));
+
+        restTemplate.exchange(getURL(path,id), HttpMethod.DELETE, request, String.class);
+
+    }
+
+    @SneakyThrows
+    private URI getURL(String path, long id) {
+        return new URI(String.format("%s/%s/%s",backendConfig.getUrl(),path,id));
     }
 }
