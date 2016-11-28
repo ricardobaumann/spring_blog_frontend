@@ -26,4 +26,8 @@ public class PostService {
     public void delete(long id, CustomAuthentication customAuthentication) {
         backendHelper.delete("posts",id, customAuthentication.getToken());
     }
+
+    public Post getPost(Long postId, CustomAuthentication customAuthentication) {
+        return backendHelper.get(String.format("posts/%s",postId),customAuthentication.getToken(),Post.class);
+    }
 }

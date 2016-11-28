@@ -105,10 +105,10 @@ public class BackendHelper{
     }
 
 
-    public <T> T[] get(String path, String token, Class<T[]> responseType) {
+    public <T> T get(String path, String token, Class<T> responseType) {
         HttpEntity<T> request = new HttpEntity<>(getHeaders(token));
 
-        ResponseEntity<T[]> response = restTemplate.exchange(getURL(path), HttpMethod.GET, request, responseType);
+        ResponseEntity<T> response = restTemplate.exchange(getURL(path), HttpMethod.GET, request, responseType);
 
         return response.getBody();
     }

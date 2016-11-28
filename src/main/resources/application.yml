@@ -6,3 +6,7 @@ backend:
   scopes:
     - read
     - write
+
+spring:
+  thymeleaf:
+    cache: false

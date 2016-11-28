@@ -35,7 +35,7 @@
         <td><strong>Title</strong></td>
         <td><strong>Content</strong></td>
         <td><strong>Category</strong></td>
-        <td></td>
+        <td colspan="2">Actions</td>
     </tr>
     <th:block th:each="post : ${postsForm.posts}">
         <tr>
@@ -47,6 +47,9 @@
                     <input type="hidden" th:value="${post.id}" id="id" name="id"/>
                     <button type="submit">Delete</button>
                 </form>
+            </td>
+            <td>
+                <a th:href="@{/posts/{post_id}/comments(post_id=${post.id})}">Comments</a>
             </td>
         </tr>
     </th:block>
