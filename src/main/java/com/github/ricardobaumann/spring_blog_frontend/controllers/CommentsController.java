@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Created by ricardobaumann on 28/11/16.
@@ -38,7 +39,7 @@ public class CommentsController {
         commentsForm.setPost(post);
 
         commentsForm.setContent("Input your comment");
-        commentsForm.setComments(post.getComments());
+        commentsForm.setComments(commentsService.getComments(post,customAuthentication));
 
         return "comments";
     }
@@ -47,17 +48,27 @@ public class CommentsController {
     public String postComments(@PathVariable("post_id") Long postId,
                                CommentsForm commentsForm,
                                CustomAuthentication customAuthentication,
-                               BindingResult bindingResult) {
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
 
         Post post = postService.getPost(postId, customAuthentication);
         Comment comment = converter.convert(commentsForm,Comment.class);
         comment = commentsService.createComment(post,comment,customAuthentication);
         commentsForm.setId(comment.getId());
 
+        redirectAttributes.addFlashAttribute(String.format("message","Comment created with id %s",comment.getId()));
 
         return String.format("redirect:/posts/%s/comments",postId);
 
 
+    }
+
+    @GetMapping("/comments/delete")
+    public String deleteComments(Long id, Long postId, CustomAuthentication customAuthentication) {
+
+        commentsService.delete(postId,id, customAuthentication);
+
+        return String.format("redirect:/posts/%s/comments",postId);
     }
 
 }

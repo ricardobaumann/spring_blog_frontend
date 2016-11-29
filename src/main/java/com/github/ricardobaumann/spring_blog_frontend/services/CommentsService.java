@@ -21,4 +21,13 @@ public class CommentsService {
         return backendHelper.post(comment, path,customAuthentication.getToken(),Comment.class);
     }
 
+    public Comment[] getComments(Post post, CustomAuthentication customAuthentication) {
+        String path = String.format("/posts/%s/comments",post.getId());
+        return backendHelper.get(path,customAuthentication.getToken(),Comment[].class);
+    }
+
+    public void delete(Long postId, Long id, CustomAuthentication customAuthentication) {
+        String path = String.format("/posts/%s/comments/%s",postId,id);
+        backendHelper.delete(path, customAuthentication.getToken());
+    }
 }

@@ -124,4 +124,12 @@ public class BackendHelper{
     private URI getURL(String path, long id) {
         return new URI(String.format("%s/%s/%s",backendConfig.getUrl(),path,id));
     }
+
+    public void delete(String path, String token) {
+
+        HttpEntity<?> request = new HttpEntity<>(getHeaders(token));
+
+        restTemplate.exchange(getURL(path), HttpMethod.DELETE, request, String.class);
+
+    }
 }
